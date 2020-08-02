@@ -1,0 +1,33 @@
+.navbar {
+    background-color: black;
+}
+.navbar-toggler{
+    border-color: #ffffff !important;
+}
+.navbar-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
+}
+.nav-content {
+    max-width: 700px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+.mt-135 {
+    margin-top: 135px;
+}
+.m-width-700 {
+    max-width: 700px !important;
+}
+.m-width-800 {
+    max-width: 800px !important;
+}
+.text-black {
+    color: black;
+}
+.text {
+    display: inline-block;
+    letter-spacing: 0;
+}
+.btn {
+    border-radius: 10rem !important;
+}

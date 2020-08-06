@@ -6,4 +6,6 @@ WORKDIR /go/src/github.com/hide168/charaboti.com
 
 ADD . /go/src/github.com/hide168/charaboti.com
 
+RUN go get github.com/go-sql-driver/mysql;
+
 EXPOSE 8080

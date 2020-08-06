@@ -7,3 +7,10 @@ services:
     ports: 
       - "8080:8080"
     container_name: charaboti
+    depends_on:
+      - mysql
+mysql:
+  image: latest
+  environment:
+    MYSQL_ROOT_PASSWORD: golang
+  container_name: mysql-container

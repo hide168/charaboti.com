@@ -56,6 +56,11 @@ func generateHTML(writer http.ResponseWriter, data interface{}, filenames ...str
 	templates.ExecuteTemplate(writer, "layout", data)
 }
 
+func danger(args ...interface{}) {
+	logger.SetPrefix("ERROR ")
+	logger.Println(args...)
+}
+
 // バージョン
 func version() string {
 	return "0.1"

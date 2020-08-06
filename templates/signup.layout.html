@@ -1,5 +1,17 @@
-{{ define "content" }}
-<body id="page-top">
+{{ define "layout" }}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャラ墓地.com</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body id="page-signup">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 bg-dark" id="mainNav">
         <div class="container nav-content">
             <a class="navbar-brand text-white" href="#page-top">キャラ墓地.com</a>
@@ -10,7 +22,7 @@
                 <ul class="navbar-nav my-2 my-lg-0">
                     <li class="nav-item"><a class="nav-link text-white" href="#about">一覧</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#services">ログイン</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="/signup">新規登録</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#portfolio">新規登録</a></li>
                 </ul>
                 <form class="form-inline ml-auto my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -20,44 +32,18 @@
         </div>
     </nav>
 
-    <header class="masthead">
-        <div class="container mt-135">
-            <div class="row align-items-center justify-content-center text-center">
-                <img class="img-fluid" src="haka.jpg" width="320" height="320" alt="">
-                <div class="col-lg-10 align-self-end mt-5">
-                    <h1 class="text-black font-weight-bold">
-                        <span class="text">ここは</span>
-                        <span class="text">キャラクター達の</span>
-                        <span class="text">墓場です</span>
-                    </h1>
-                    <hr class="divider my-4" />
-                </div>
-                <div class="col-lg-8 align-self-baseline">
-                    <p class="text-white-75 font-weight-light mb-5">あなたが考えた、ネタキャラクター、没キャラクター、使わなくなったキャラクターなどをここに埋めてみましょう
-                    </p>
-                    <a class="btn btn-info btn-lg" href="#about">埋葬する</a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <form class="container mb-5 mt-135 m-width-800" ole="form" action="/signup_account" method="post">
 
-    <section class="page-section" id="popular-character">
-        <div class="container mt-5 m-width-800">
-            <h3>人気のキャラクター</h3>
-            <div class="popular-contents row">
+        {{ template "name" . }}
 
-            </div>
-        </div>
-    </section>
+        {{ template "email" . }}
 
-    <section class="page-section" id="newest-character">
-        <div class="container mt-5 m-width-800">
-            <h3>新規のキャラクター</h3>
-            <div class="popular-contents row">
+        {{ template "password" . }}        
 
-            </div>
-        </div>
-    </section>
+        {{ template "confirm-password" . }}
+       
+        <button type="submit" class="btn btn-primary">新規登録</button>
+    </form>
 
     <footer class="bg-light py-3">
         <div class="container nav-content">
@@ -70,4 +56,14 @@
             <div class="small text-center text-muted">Copyright © 2020 - NAOKI HIDE</div>
         </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</body>
 {{ end }}

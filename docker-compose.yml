@@ -9,11 +9,8 @@ services:
     container_name: charaboti
     depends_on:
       - mysql
-
   mysql:
-    image: mysql:5.7
+    image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: golang
-    volumes:
-      - ./initdb.d:/docker-entrypoint-initdb.d
     container_name: mysql-container

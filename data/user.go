@@ -18,6 +18,7 @@ type User struct {
 }
 
 func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool) {
+	log.Print("successA")
 	if user.Name != "" {
 		ch <- "signup.valid.name"
 		check <- true
@@ -26,10 +27,11 @@ func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool)
 		check <- false
 	}
 	wg.Done()
-	log.Print("successA")
+	log.Print("successB")
 }
 
 func (user *User) CheckEmail(wg *sync.WaitGroup, ch chan string, check chan bool) {
+	log.Print("successC")
 	match, _ := regexp.MatchString("^[0-9a-z_./?-]+@([0-9a-z-]+.)+[0-9a-z-]+$", user.Email)
 	if match == true {
 		ch <- "signup.valid.email"
@@ -39,10 +41,11 @@ func (user *User) CheckEmail(wg *sync.WaitGroup, ch chan string, check chan bool
 		check <- false
 	}
 	wg.Done()
-	log.Print("successB")
+	log.Print("successD")
 }
 
 func (user *User) CheckPassword(wg *sync.WaitGroup, ch chan string, check chan bool) {
+	log.Print("successE")
 	match, _ := regexp.MatchString("[A-Za-z0-9]{8,}", user.Password)
 	if match != true {
 		user.ConfirmPassword = ""
@@ -59,5 +62,5 @@ func (user *User) CheckPassword(wg *sync.WaitGroup, ch chan string, check chan b
 		check <- true
 	}
 	wg.Done()
-	log.Print("successC")
+	log.Print("successF")
 }

@@ -25,8 +25,8 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 	}
 	var wg sync.WaitGroup
 	var templates []string
-	ch := make(chan string)
-	check := make(chan bool)
+	ch := make(chan string, 4)
+	check := make(chan bool, 3)
 	for i := 0; i < 3; i++ {
 		wg.Add(1)
 	}

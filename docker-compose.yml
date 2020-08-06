@@ -10,10 +10,7 @@ services:
     depends_on:
       - mysql
 mysql:
-  image: latest
+  image: mysql:latest
   environment:
     MYSQL_ROOT_PASSWORD: golang
-    MYSQL_USER: golang
-    MYSQL_PASSWORD: golang
-    MYSQL_DATABASE: golang
   container_name: mysql-container

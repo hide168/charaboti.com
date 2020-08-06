@@ -13,6 +13,6 @@ services:
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: golang
-    # volumes:
-    #   - .:/var/lib/mysql
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
     container_name: mysql-container

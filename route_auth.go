@@ -30,13 +30,14 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 	for i := 0; i < 3; i++ {
 		wg.Add(1)
 	}
-	log.Fatal("success")
+	log.Print("success1")
 	go user.CheckName(&wg, ch, check)
 	go user.CheckEmail(&wg, ch, check)
 	go user.CheckPassword(&wg, ch, check)
 	wg.Wait()
 	close(ch)
 	close(check)
+	log.Print("success2")
 	for i := range ch {
 		templates = append(templates, i)
 	}
@@ -47,5 +48,6 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 			return
 		}
 	}
+	log.Print("success3")
 	generateHTML(writer, nil, "layout", "signup.complete")
 }

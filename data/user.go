@@ -1,6 +1,7 @@
 package data
 
 import (
+	"log"
 	"regexp"
 	"sync"
 	"time"
@@ -25,6 +26,7 @@ func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool)
 		check <- false
 	}
 	wg.Done()
+	log.Print("successA")
 }
 
 func (user *User) CheckEmail(wg *sync.WaitGroup, ch chan string, check chan bool) {
@@ -37,6 +39,7 @@ func (user *User) CheckEmail(wg *sync.WaitGroup, ch chan string, check chan bool
 		check <- false
 	}
 	wg.Done()
+	log.Print("successB")
 }
 
 func (user *User) CheckPassword(wg *sync.WaitGroup, ch chan string, check chan bool) {
@@ -56,4 +59,5 @@ func (user *User) CheckPassword(wg *sync.WaitGroup, ch chan string, check chan b
 		check <- true
 	}
 	wg.Done()
+	log.Print("successC")
 }

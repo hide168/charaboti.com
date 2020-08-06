@@ -14,5 +14,5 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: golang
     volumes:
-      - .:/var/lib/mysql
+      # - .:/var/lib/mysql
     container_name: mysql-container

@@ -9,6 +9,7 @@ services:
     container_name: charaboti
     depends_on:
       - mysql
+      
   mysql:
     image: mysql:latest
     environment:

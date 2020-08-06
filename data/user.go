@@ -22,6 +22,7 @@ func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool)
 	if user.Name != "" {
 		log.Print(user.Email)
 		ch <- "signup.valid.name"
+		log.Print("successP")
 		check <- true
 		log.Print("successA")
 	} else {
@@ -38,11 +39,15 @@ func (user *User) CheckEmail(wg *sync.WaitGroup, ch chan string, check chan bool
 	match, _ := regexp.MatchString("^[0-9a-z_./?-]+@([0-9a-z-]+.)+[0-9a-z-]+$", user.Email)
 	log.Print("successF")
 	if match == true {
+		log.Print(match)
 		ch <- "signup.valid.email"
+		log.Print("successQ")
 		check <- true
 		log.Print("successG")
 	} else {
+		log.Print(match)
 		ch <- "signup.invalid.email"
+		log.Print("successR")
 		check <- false
 		log.Print("successH")
 	}

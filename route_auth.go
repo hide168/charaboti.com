@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"sync"
 
@@ -29,6 +30,7 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 	for i := 0; i < 3; i++ {
 		wg.Add(1)
 	}
+	log.Fatal("success")
 	go user.CheckName(&wg, ch, check)
 	go user.CheckEmail(&wg, ch, check)
 	go user.CheckPassword(&wg, ch, check)

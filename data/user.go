@@ -1,6 +1,7 @@
 package data
 
 import (
+	"log"
 	"regexp"
 	"sync"
 	"time"
@@ -17,11 +18,12 @@ type User struct {
 }
 
 func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool) {
-	statement := "select count(*) from users where name=?"
-	stmt, _ := Db.Prepare(statement)
-	defer stmt.Close()
-	result, _ := stmt.Exec(user.Name)
-	if result.(int) > 0 {
+	var count int
+	err := db.QueryRow("select count(*) from users where name = ?", user.name).Scan(&count)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if count > 0 {
 		ch <- "signup.duplicate.name"
 		check <- false
 	} else if user.Name != "" {
@@ -35,12 +37,12 @@ func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool)
 }
 
 func (user *User) CheckEmail(wg *sync.WaitGroup, ch chan string, check chan bool) {
-	match, _ := regexp.MatchString("^[0-9a-z_./?-]+@([0-9a-z-]+.)+[0-9a-z-]+$", user.Email)
-	statement := "select count(*) from users where email=?"
-	stmt, _ := Db.Prepare(statement)
-	defer stmt.Close()
-	result, _ := stmt.Exec(user.Email)
-	if result.(int) > 0 {
+	var count int
+	err := db.QueryRow("select count(*) from users where email = ?", user.email).Scan(&count)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if count > 0 {
 		ch <- "signup.duplicate.email"
 		check <- false
 	} else if match == true {

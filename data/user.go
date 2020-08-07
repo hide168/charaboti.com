@@ -18,9 +18,9 @@ type User struct {
 
 func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool) {
 	statement := "select count(*) from users where name=?"
-	stmt := Db.Prepare(statement)
+	stmt, _ := Db.Prepare(statement)
 	defer stmt.Close()
-	result := stmt.Exec(user.Name)
+	result, _ := stmt.Exec(user.Name)
 	if result > 0 {
 		ch <- "signup.duplicate.name"
 		check <- false
@@ -37,9 +37,9 @@ func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool)
 func (user *User) CheckEmail(wg *sync.WaitGroup, ch chan string, check chan bool) {
 	match, _ := regexp.MatchString("^[0-9a-z_./?-]+@([0-9a-z-]+.)+[0-9a-z-]+$", user.Email)
 	statement := "select count(*) from users where email=?"
-	stmt := Db.Prepare(statement)
+	stmt, _ := Db.Prepare(statement)
 	defer stmt.Close()
-	result := stmt.Exec(user.Email)
+	result, _ := stmt.Exec(user.Email)
 	if result > 0 {
 		ch <- "signup.duplicate.email"
 		check <- false

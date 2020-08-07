@@ -38,10 +38,11 @@ func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool)
 
 func (user *User) CheckEmail(wg *sync.WaitGroup, ch chan string, check chan bool) {
 	var count int
-	err := Db.QueryRow("select count(*) from users where email = ?", user.Email).Scan(&count)
+	err := Db.QueryRow("select count(*) from users where name = ?", user.Email).Scan(&count)
 	if err != nil {
 		log.Fatal(err)
 	}
+	match, _ := regexp.MatchString("^[0-9a-z_./?-]+@([0-9a-z-]+.)+[0-9a-z-]+$", user.Email)
 	if count > 0 {
 		ch <- "signup.duplicate.email"
 		check <- false

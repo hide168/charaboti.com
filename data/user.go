@@ -19,7 +19,7 @@ type User struct {
 
 func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool) {
 	var count int
-	err := db.QueryRow("select count(*) from users where name = ?", user.name).Scan(&count)
+	err := Db.QueryRow("select count(*) from users where name = ?", user.Name).Scan(&count)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -38,7 +38,7 @@ func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool)
 
 func (user *User) CheckEmail(wg *sync.WaitGroup, ch chan string, check chan bool) {
 	var count int
-	err := db.QueryRow("select count(*) from users where email = ?", user.email).Scan(&count)
+	err := Db.QueryRow("select count(*) from users where email = ?", user.Email).Scan(&count)
 	if err != nil {
 		log.Fatal(err)
 	}

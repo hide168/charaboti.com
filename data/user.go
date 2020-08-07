@@ -59,7 +59,7 @@ func (user *User) CheckPassword(wg *sync.WaitGroup, ch chan string, check chan b
 }
 
 func (user *User) Create() (err error) {
-	statement := "insert into users (uuid, name, email, password, created_at) values ($1, $2, $3, $4, $5)"
+	statement := "insert into users (uuid, name, email, password, created_at) values (?, ?, ?, ?, ?)"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return

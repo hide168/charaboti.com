@@ -21,7 +21,7 @@ func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool)
 	stmt, _ := Db.Prepare(statement)
 	defer stmt.Close()
 	result, _ := stmt.Exec(user.Name)
-	if result > 0 {
+	if result.(int) > 0 {
 		ch <- "signup.duplicate.name"
 		check <- false
 	} else if user.Name != "" {
@@ -40,7 +40,7 @@ func (user *User) CheckEmail(wg *sync.WaitGroup, ch chan string, check chan bool
 	stmt, _ := Db.Prepare(statement)
 	defer stmt.Close()
 	result, _ := stmt.Exec(user.Email)
-	if result > 0 {
+	if result.(int) > 0 {
 		ch <- "signup.duplicate.email"
 		check <- false
 	} else if match == true {

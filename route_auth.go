@@ -48,6 +48,7 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 	if err := user.Create(); err != nil {
 		danger(err, "ユーザーの作成に失敗しました")
 		generateHTML(writer, user, "layout", "signup.error")
+		return
 	}
 	generateHTML(writer, nil, "layout", "signup.complete")
 }

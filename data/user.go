@@ -59,7 +59,6 @@ func (user *User) CheckEmail(wg *sync.WaitGroup, ch chan string, check chan bool
 func (user *User) CheckPassword(wg *sync.WaitGroup, ch chan string, check chan bool) {
 	match, _ := regexp.MatchString("[A-Za-z0-9]{8,}", user.Password)
 	if match != true {
-		user.ConfirmPassword = ""
 		ch <- "signup.invalid.password"
 		ch <- "signup.none.confirm-password"
 		check <- false

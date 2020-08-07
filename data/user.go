@@ -66,6 +66,6 @@ func (user *User) Create() (err error) {
 	}
 	defer stmt.Close()
 
-	_, err := stmt.Exec(createUUID(), user.Name, user.Email, Encrypt(user.Password), time.Now())
+	_, err = stmt.Exec(createUUID(), user.Name, user.Email, Encrypt(user.Password), time.Now())
 	return
 }

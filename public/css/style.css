@@ -12,6 +12,11 @@
     margin-left: auto !important;
     margin-right: auto !important;
 }
+#signup-error {
+    background-color: #fbdfdf;
+    color: red;
+    border-radius: 0.25rem;
+}
 .mt-135 {
     margin-top: 135px;
 }

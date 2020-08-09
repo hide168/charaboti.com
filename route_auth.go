@@ -69,13 +69,13 @@ func authenticate(writer http.ResponseWriter, request *http.Request) {
 			danger(err, "セッションの生成に失敗しました")
 		}
 		cookie := http.Cookie{
-			Name:		"_cookie",
-			Value		session.Uuid,
-			HttpOnly:	true,
+			Name:     "_cookie",
+			Value:    session.Uuid,
+			HttpOnly: true,
 		}
 		http.SetCookie(writer, &cookie)
 		generateHTML(writer, nil, "layout", "login.error")
 	} else {
 		generateHTML(writer, nil, "layout", "login.complete")
-	}	
+	}
 }

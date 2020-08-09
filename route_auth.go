@@ -74,8 +74,8 @@ func authenticate(writer http.ResponseWriter, request *http.Request) {
 			HttpOnly: true,
 		}
 		http.SetCookie(writer, &cookie)
-		generateHTML(writer, nil, "layout", "login.error")
-	} else {
 		generateHTML(writer, nil, "layout", "login.complete")
+	} else {
+		generateHTML(writer, nil, "layout", "login.error")
 	}
 }

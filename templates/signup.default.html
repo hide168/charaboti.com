@@ -1,58 +1,25 @@
 {{ define "content" }}
-<body id="page-signup">
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 bg-dark" id="mainNav">
-        <div class="container nav-content">
-            <a class="navbar-brand text-white" href="/">キャラ墓地.com</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav my-2 my-lg-0">
-                    <li class="nav-item"><a class="nav-link text-white" href="#about">一覧</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="/login">ログイン</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="/signup">新規登録</a></li>
-                </ul>
-                <form class="form-inline ml-auto my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-
-    <form class="container mb-5 mt-135 m-width-800" ole="form" action="/signup_account" method="post">
-        <div class="form-group">
-            <label for="InputName">ユーザー名</label>
-            <input type="text" name="name" class="form-control" id="InputName">
-        </div>
-        <div class="form-group">
-            <label for="InputEmail">メールアドレス</label>
-            <input type="email" name="email" class="form-control" id="InputEmail">
-        </div>
-        <div class="form-group">
-            <label for="InputPassword">パスワード</label>
-            <input type="password" name="password" class="form-control" id="InputPassword"
-                aria-describedby="passwordlHelp1">
-            <small id="passwordlHelp1" class="form-text text-muted">※英数字8文字以上</small>
-        </div>
-        <div class="form-group">
-            <label for="InputConfirmPassword">確認用パスワード</label>
-            <input type="password" name="confirm-password" class="form-control" id="InputConfirmPassword"
-                aria-describedby="passwordlHelp2">
-            <small id="passwordlHelp2" class="form-text text-muted">※英数字8文字以上</small>
-        </div>
-        <button type="submit" class="btn btn-primary">新規登録</button>
-    </form>
-
-    <footer class="bg-light py-3">
-        <div class="container nav-content">
-            <div class="navbar navbar-expand-lg navbar-light py-3 bg-light">
-                <ul class="navbar-nav ml-sm-auto mr-sm-0 mx-auto my-2 my-lg-0">
-                    <li class="nav-item"><a class="nav-link text-grey" href="#about">利用規約</a></li>
-                    <li class="nav-item"><a class="nav-link text-grey" href="#services">プライバシーポリシー</a></li>
-                </ul>
-            </div>
-            <div class="small text-center text-muted">Copyright © 2020 - NAOKI HIDE</div>
-        </div>
-    </footer>
+<form class="container mb-5 mt-135 m-width-800" ole="form" action="/signup_account" method="post">
+    <div class="form-group">
+        <label for="InputName">ユーザー名</label>
+        <input type="text" name="name" class="form-control" id="InputName">
+    </div>
+    <div class="form-group">
+        <label for="InputEmail">メールアドレス</label>
+        <input type="email" name="email" class="form-control" id="InputEmail">
+    </div>
+    <div class="form-group">
+        <label for="InputPassword">パスワード</label>
+        <input type="password" name="password" class="form-control" id="InputPassword"
+            aria-describedby="passwordlHelp1">
+        <small id="passwordlHelp1" class="form-text text-muted">※英数字8文字以上</small>
+    </div>
+    <div class="form-group">
+        <label for="InputConfirmPassword">確認用パスワード</label>
+        <input type="password" name="confirm-password" class="form-control" id="InputConfirmPassword"
+            aria-describedby="passwordlHelp2">
+        <small id="passwordlHelp2" class="form-text text-muted">※英数字8文字以上</small>
+    </div>
+    <button type="submit" class="btn btn-primary">新規登録</button>
+</form>
 {{ end }}

@@ -8,7 +8,7 @@ import (
 )
 
 func signup(writer http.ResponseWriter, request *http.Request) {
-	generateHTML(writer, nil, "layout", "signup.default")
+	generateHTML(writer, nil, "layout", "public.navbar", "signup.default")
 }
 
 func signupAccount(writer http.ResponseWriter, request *http.Request) {
@@ -47,14 +47,14 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 	}
 	if err := user.Create(); err != nil {
 		danger(err, "ユーザーの作成に失敗しました")
-		generateHTML(writer, nil, "layout", "signup.error")
+		generateHTML(writer, nil, "layout", "public.navbar", "signup.error")
 		return
 	}
-	generateHTML(writer, nil, "layout", "signup.complete")
+	generateHTML(writer, nil, "layout", "public.navbar", "signup.complete")
 }
 
 func login(writer http.ResponseWriter, request *http.Request) {
-	generateHTML(writer, nil, "layout", "login.default")
+	generateHTML(writer, nil, "layout", "public.navbar", "login.default")
 }
 
 func authenticate(writer http.ResponseWriter, request *http.Request) {
@@ -74,8 +74,8 @@ func authenticate(writer http.ResponseWriter, request *http.Request) {
 			HttpOnly: true,
 		}
 		http.SetCookie(writer, &cookie)
-		generateHTML(writer, nil, "layout", "login.complete")
+		generateHTML(writer, nil, "layout", "private.navbar", "login.complete")
 	} else {
-		generateHTML(writer, nil, "layout", "login.error")
+		generateHTML(writer, nil, "layout", "public.navbar", "login.error")
 	}
 }

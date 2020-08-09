@@ -2,11 +2,14 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"text/template"
+
+	"github.com/hide168/charaboti.com/data"
 )
 
 type Configuration struct {
@@ -44,6 +47,17 @@ func loadConfig() {
 	if err != nil {
 		log.Fatalln("ファイルからコンフィグを取得できませんでした", err)
 	}
+}
+
+func session(writer http.ResponseWriter, request *http.Request) (sess data.Session, err error) {
+	cookie, err := request.Cookie("_cookie")
+	if err == nil {
+		sess = data.Session{UUID: cookie.Value}
+		if ok, _ := sess.Check(); !ok {
+			err = errors.New("Invalid session")
+		}
+	}
+	return
 }
 
 func generateHTML(writer http.ResponseWriter, data interface{}, filenames ...string) {

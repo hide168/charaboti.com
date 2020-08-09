@@ -18,10 +18,10 @@ type User struct {
 }
 
 type Session struct {
-	ID        int
-	UUID      string
+	Id        int
+	Uuid      string
 	Email     string
-	UserID    int
+	UserId    int
 	CreatedAt time.Time
 }
 
@@ -97,7 +97,7 @@ func (user *User) Create() (err error) {
 func UserByEmail(email string) (user User, err error) {
 	user = User{}
 	err = Db.QueryRow("SELECT id, uuid, name, email, password, created_at FROM users WHERE email = ?", email).
-		Scan(&user.ID, &user.UUID, &user.Name, &user.Email, &user.Password, &user.CreatedAt)
+		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Password, &user.CreatedAt)
 	return
 }
 
@@ -109,11 +109,11 @@ func (user *User) CreateSession() (session Session, err error) {
 	}
 	defer stmt.Close()
 	uuid := createUUID()
-	_, err = stmt.Exec(uuid, user.Email, user.ID, time.Now())
+	_, err = stmt.Exec(uuid, user.Email, user.Id, time.Now())
 	if err != nil {
 		return
 	}
 	err = Db.QueryRow("SELECT id, uuid, email, user_id, created_at FROM sessions WHERE uuid = ?", uuid).
-		Scan(&session.ID, &session.UUID, &session.Email, &session.UserID, &session.CreatedAt)
+		Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
 	return
 }

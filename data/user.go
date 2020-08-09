@@ -17,6 +17,14 @@ type User struct {
 	CreatedAt       time.Time
 }
 
+type Session struct {
+	ID        int
+	UUID      string
+	Email     string
+	UserID    int
+	CreatedAt time.Time
+}
+
 func (user *User) CheckName(wg *sync.WaitGroup, ch chan string, check chan bool) {
 	var count int
 	err := Db.QueryRow("select count(*) from users where name = ?", user.Name).Scan(&count)
@@ -83,5 +91,29 @@ func (user *User) Create() (err error) {
 	defer stmt.Close()
 
 	_, err = stmt.Exec(createUUID(), user.Name, user.Email, Encrypt(user.Password), time.Now())
+	return
+}
+
+func UserByEmail(email string) (user User, err error) {
+	user = User{}
+	err = Db.QueryRow("SELECT id, uuid, name, email, password, created_at FROM users WHERE email = ?", email).
+		Scan(&user.ID, &user.UUID, &user.Name, &user.Email, &user.Password, &user.CreatedAt)
+	return
+}
+
+func (user *User) CreateSession() (session Session, err error) {
+	statement := "insert into sessions (uuid, email, user_id, created_at) values (?, ?, ?, ?)"
+	stmt, err := Db.Prepare(statement)
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+	uuid := createUUID()
+	_, err = stmt.Exec(uuid, user.Email, user.ID, time.Now())
+	if err != nil {
+		return
+	}
+	err = Db.QueryRow("SELECT id, uuid, email, user_id, created_at FROM sessions WHERE uuid = ?", uuid).
+		Scan(&session.ID, &session.UUID, &session.Email, &session.UserID, &session.CreatedAt)
 	return
 }

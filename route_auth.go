@@ -52,3 +52,30 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 	}
 	generateHTML(writer, nil, "layout", "signup.complete")
 }
+
+func login(writer http.ResponseWriter, request *http.Request) {
+	generateHTML(writer, nil, "layout", "login.default")
+}
+
+func authenticate(writer http.ResponseWriter, request *http.Request) {
+	err := request.ParseForm()
+	user, err := data.UserByEmail(request.PostFormValue("email"))
+	if err != nil {
+		danger(err, "ユーザーが見つかりません")
+	}
+	if user.Password == data.Encrypt(request.PostFormValue("password")) {
+		session, err := user.CreateSession()
+		if err != nil {
+			danger(err, "セッションの生成に失敗しました")
+		}
+		cookie := http.Cookie{
+			Name:		"_cookie",
+			Value		session.Uuid,
+			HttpOnly:	true,
+		}
+		http.SetCookie(writer, &cookie)
+		generateHTML(writer, nil, "layout", "login.error")
+	} else {
+		generateHTML(writer, nil, "layout", "login.complete")
+	}	
+}

@@ -17,6 +17,11 @@
     color: red;
     border-radius: 0.25rem;
 }
+#signup-complete {
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 0.25rem;
+}
 .mt-135 {
     margin-top: 135px;
 }

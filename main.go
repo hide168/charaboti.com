@@ -25,6 +25,8 @@ func main() {
 	// route_auth.goで定義されています
 	mux.HandleFunc("/signup", signup)
 	mux.HandleFunc("/signup_account", signupAccount)
+	mux.HandelFunc("/login", login)
+	mux.HandleFunc("/authenticate", authenticate)
 
 	// サーバーの起動処理
 	server := &http.Server{

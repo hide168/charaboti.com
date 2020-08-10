@@ -29,7 +29,7 @@ func p(a ...interface{}) {
 
 func init() {
 	loadConfig()
-	file, err := os.OpenFile("go-portfolio.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	file, err := os.OpenFile("charaboti.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalln("ログファイルを開けませんでした", err)
 	}
@@ -72,6 +72,11 @@ func generateHTML(writer http.ResponseWriter, data interface{}, filenames ...str
 
 func danger(args ...interface{}) {
 	logger.SetPrefix("ERROR ")
+	logger.Println(args...)
+}
+
+func warning(args ...interface{}) {
+	logger.SetPrefix("WARNING")
 	logger.Println(args...)
 }
 

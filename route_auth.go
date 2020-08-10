@@ -102,4 +102,5 @@ func mypage(writer http.ResponseWriter, request *http.Request) {
 		} else {
 			generateHTML(writer, user, "layout", "private.navbar", "mypage")
 		}
+	}
 }

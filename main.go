@@ -20,7 +20,7 @@ func main() {
 	// index
 	mux.HandleFunc("/", index)
 	// error
-	// mux.HandleFunc("/err", err)
+	mux.HandleFunc("/err", err)
 
 	// route_auth.goで定義されています
 	mux.HandleFunc("/signup", signup)

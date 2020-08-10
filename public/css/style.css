@@ -12,6 +12,11 @@
     margin-left: auto !important;
     margin-right: auto !important;
 }
+#page-error {
+    background-color: #fbdfdf;
+    color: red;
+    border-radius: 0.25rem;
+}
 #signup-error {
     background-color: #fbdfdf;
     color: red;

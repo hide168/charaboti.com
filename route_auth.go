@@ -74,8 +74,32 @@ func authenticate(writer http.ResponseWriter, request *http.Request) {
 			HttpOnly: true,
 		}
 		http.SetCookie(writer, &cookie)
-		generateHTML(writer, nil, "layout", "private.navbar", "login.complete")
+		http.Redirect(writer, request, "/", 302)
 	} else {
 		generateHTML(writer, nil, "layout", "public.navbar", "login.error")
 	}
+}
+
+func logout(writer http.ResponseWriter, request *http.Request) {
+	cookie, err := request.Cookie("_cookie")
+	if err != http.ErrNoCookie {
+		warning(err, "Cookieの取得に失敗しました")
+		session := data.Session{UUID: cookie.Value}
+		session.DeleteByUUID()
+	}
+	http.Redirect(writer, request, "/", 302)
+}
+
+func mypage(writer http.ResponseWriter, request *http.Request) {
+	sess, err := session(writer, request)
+	if err != nil {
+		http.Redirect(writer, request, "/login", 302)
+	} else {
+		user, err := sess.User()
+		if err != nil {
+			danger(err, "セッションからユーザーを取得出来ませんでした。")
+			http.Redirect(writer, request, "/err", 302)
+		} else {
+			generateHTML(writer, user, "layout", "private.navbar", "mypage")
+		}
 }

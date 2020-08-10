@@ -1,0 +1,17 @@
+{{ define "content" }}
+<section id="user-mypage">
+    <div class="container mt-135 m-width-800">
+        <div class="align-items-center justify-content-center text-center">
+            <img class="img-fluid" id="profile-image" src="/static/default.jpg" width="250" height="250" alt="">
+            <h2 class="mt-4">{{ .Name }}</h2>
+            <a class="btn btn-primary mt-4" href="#about">編集する</a>
+        </div>
+        <div class="mt-5">
+            <h3>ブックマーク</h3>
+            <div class="bookmark-contents row">
+    
+            </div>
+        </div>
+    </div>
+</section>
+{{ end }}

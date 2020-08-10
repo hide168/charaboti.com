@@ -130,3 +130,22 @@ func (session *Session) Check() (valid bool, err error) {
 	}
 	return
 }
+
+func (session *Session) DeleteByUUID() (err error) {
+	statement := "delete from sessions where uuid = ?"
+	stmt, err := Db.Prepare(statement)
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(session.Uuid)
+	return
+}
+
+func (session *Session) User() (user User, err error) {
+	user = User{}
+	err = Db.QueryRow("SELECT id, uuid, name, email, created_at FROM users WHERE id = ?", session.UserId).
+		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
+	return
+}

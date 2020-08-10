@@ -16,6 +16,10 @@
     background-color: #fbdfdf;
     color: red;
     border-radius: 0.25rem;
+    margin-top: 220px;
+}
+#page-error-btn {
+    margin-bottom: 180px;
 }
 #signup-error {
     background-color: #fbdfdf;

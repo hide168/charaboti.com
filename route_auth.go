@@ -84,7 +84,7 @@ func logout(writer http.ResponseWriter, request *http.Request) {
 	cookie, err := request.Cookie("_cookie")
 	if err != http.ErrNoCookie {
 		warning(err, "Cookieの取得に失敗しました")
-		session := data.Session{UUID: cookie.Value}
+		session := data.Session{Uuid: cookie.Value}
 		session.DeleteByUUID()
 	}
 	http.Redirect(writer, request, "/", 302)

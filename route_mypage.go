@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/hide168/charaboti.com/data"
@@ -53,6 +54,8 @@ func changeProfile(writer http.ResponseWriter, request *http.Request) {
 		Name: request.PostFormValue("name"),
 	}
 	if user.Name == "" {
+		log.Print(user.Name)
+		log.Print(user.Uuid)
 		generateHTML(writer, user, "layout", "private.navbar", "mypage.edit.error")
 		return
 	}

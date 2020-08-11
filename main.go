@@ -29,6 +29,7 @@ func main() {
 	mux.HandleFunc("/authenticate", authenticate)
 	mux.HandleFunc("/logout", logout)
 	mux.HandleFunc("/mypage", mypage)
+	mux.HandleFunc("/mypage_edit", mypageEdit)
 
 	// サーバーの起動処理
 	server := &http.Server{

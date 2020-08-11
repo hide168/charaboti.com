@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	p("go_portfolio", version(), "started at", config.Address)
+	p("charaboti.com", version(), "started at", config.Address)
 
 	// 静的ファイルの処理
 	mux := http.NewServeMux()
@@ -20,7 +20,16 @@ func main() {
 	// index
 	mux.HandleFunc("/", index)
 	// error
-	// mux.HandleFunc("/err", err)
+	mux.HandleFunc("/err", err)
+
+	// route_auth.goで定義されています
+	mux.HandleFunc("/signup", signup)
+	mux.HandleFunc("/signup_account", signupAccount)
+	mux.HandleFunc("/login", login)
+	mux.HandleFunc("/authenticate", authenticate)
+	mux.HandleFunc("/logout", logout)
+	mux.HandleFunc("/mypage", mypage)
+	mux.HandleFunc("/mypage_edit", mypageEdit)
 
 	// サーバーの起動処理
 	server := &http.Server{

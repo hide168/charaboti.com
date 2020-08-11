@@ -37,11 +37,11 @@ func mypageEdit(writer http.ResponseWriter, request *http.Request) {
 }
 
 func changeProfile(writer http.ResponseWriter, request *http.Request) {
-	sess, err := session(writer, request)
-	if err != nil {
-		http.Redirect(writer, request, "/err", 302)
-		return
-	}
+	// sess, err := session(writer, request)
+	// if err != nil {
+	// 	http.Redirect(writer, request, "/err", 302)
+	// 	return
+	// }
 	err = request.ParseForm()
 	if err != nil {
 		danger(err, "フォームのパースに失敗しました")
@@ -56,7 +56,7 @@ func changeProfile(writer http.ResponseWriter, request *http.Request) {
 		generateHTML(writer, user, "layout", "private.navbar", "mypage.edit.error")
 		return
 	}
-	file, header, err := request.FormFile("icon")
+	file, _, err := request.FormFile("icon")
 	if err != nil {
 		http.Redirect(writer, request, "/err", 302)
 		return

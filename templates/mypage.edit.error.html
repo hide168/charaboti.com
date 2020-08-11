@@ -8,7 +8,8 @@
             <input type="hidden" name="uuid" value="{{ .Uuid }}">
             <div class="form-group">
                 <label for="InputName">新しいユーザー名</label>
-                <input type="text" name="name" class="form-control" id="InputName" value="{{ .Name }}">
+                <input type="text" name="name" class="form-control is-invalid" id="InputName" value="{{ .Name }}">
+                <div class="invalid-feedback">新しいお名前が入力されていませんでした。</div>
             </div>
             <div class="form-group">
                 <label for="InputIcon">新しいアイコン画像</label>

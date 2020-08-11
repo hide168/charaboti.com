@@ -15,6 +15,8 @@ func signupAccount(writer http.ResponseWriter, request *http.Request) {
 	err := request.ParseForm()
 	if err != nil {
 		danger(err, "フォームのパースに失敗しました")
+		http.Redirect(writer, request, "/err", 302)
+		return
 	}
 	user := data.User{
 		Name:            request.PostFormValue("name"),
@@ -88,34 +90,4 @@ func logout(writer http.ResponseWriter, request *http.Request) {
 		session.DeleteByUUID()
 	}
 	http.Redirect(writer, request, "/", 302)
-}
-
-func mypage(writer http.ResponseWriter, request *http.Request) {
-	sess, err := session(writer, request)
-	if err != nil {
-		http.Redirect(writer, request, "/login", 302)
-	} else {
-		user, err := sess.User()
-		if err != nil {
-			danger(err, "セッションからユーザーを取得出来ませんでした。")
-			http.Redirect(writer, request, "/err", 302)
-		} else {
-			generateHTML(writer, user, "layout", "private.navbar", "mypage")
-		}
-	}
-}
-
-func mypageEdit(writer http.ResponseWriter, request *http.Request) {
-	sess, err := session(writer, request)
-	if err != nil {
-		http.Redirect(writer, request, "/login", 302)
-	} else {
-		user, err := sess.User()
-		if err != nil {
-			danger(err, "セッションからユーザーを取得出来ませんでした。")
-			http.Redirect(writer, request, "/err", 302)
-		} else {
-			generateHTML(writer, user, "layout", "private.navbar", "mypage.edit")
-		}
-	}
 }

@@ -42,7 +42,7 @@ func changeProfile(writer http.ResponseWriter, request *http.Request) {
 	// 	http.Redirect(writer, request, "/err", 302)
 	// 	return
 	// }
-	err = request.ParseForm()
+	err := request.ParseForm()
 	if err != nil {
 		danger(err, "フォームのパースに失敗しました")
 		http.Redirect(writer, request, "/err", 302)

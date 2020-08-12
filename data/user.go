@@ -149,3 +149,27 @@ func (session *Session) User() (user User, err error) {
 		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
 	return
 }
+
+func (user *User) ChangeName() (err error) {
+	statement := "update users set name = ? where uuid = ?"
+	stmt, err := Db.Prepare(statement)
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(user.Name, user.Uuid)
+	return
+}
+
+func (user *User) ChangeIcon(icon string) (err error) {
+	statement := "update users set icon = ? where uuid = ?"
+	stmt, err := Db.Prepare(statement)
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(icon, user.Uuid)
+	return
+}

@@ -28,6 +28,8 @@ func main() {
 	mux.HandleFunc("/login", login)
 	mux.HandleFunc("/authenticate", authenticate)
 	mux.HandleFunc("/logout", logout)
+
+	// route_mypage.goで定義されています
 	mux.HandleFunc("/mypage", mypage)
 	mux.HandleFunc("/mypage_edit", mypageEdit)
 	mux.HandleFunc("/change_profile", changeProfile)

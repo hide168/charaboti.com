@@ -1,8 +1,9 @@
 package main
 
 import (
-	"log"
+	"io/ioutil"
 	"net/http"
+	"path/filepath"
 
 	"github.com/hide168/charaboti.com/data"
 )
@@ -10,11 +11,12 @@ import (
 func mypage(writer http.ResponseWriter, request *http.Request) {
 	sess, err := session(writer, request)
 	if err != nil {
+		danger(err, "セッションの確認に失敗しました")
 		http.Redirect(writer, request, "/err", 302)
 	} else {
 		user, err := sess.User()
 		if err != nil {
-			danger(err, "セッションからユーザーを取得出来ませんでした。")
+			danger(err, "セッションからユーザーを取得出来ませんでした")
 			http.Redirect(writer, request, "/err", 302)
 		} else {
 			generateHTML(writer, user, "layout", "private.navbar", "mypage")
@@ -25,11 +27,12 @@ func mypage(writer http.ResponseWriter, request *http.Request) {
 func mypageEdit(writer http.ResponseWriter, request *http.Request) {
 	sess, err := session(writer, request)
 	if err != nil {
+		danger(err, "セッションの確認に失敗しました")
 		http.Redirect(writer, request, "/err", 302)
 	} else {
 		user, err := sess.User()
 		if err != nil {
-			danger(err, "セッションからユーザーを取得出来ませんでした。")
+			danger(err, "セッションからユーザーを取得出来ませんでした")
 			http.Redirect(writer, request, "/err", 302)
 		} else {
 			generateHTML(writer, user, "layout", "private.navbar", "mypage.edit")
@@ -38,27 +41,52 @@ func mypageEdit(writer http.ResponseWriter, request *http.Request) {
 }
 
 func changeProfile(writer http.ResponseWriter, request *http.Request) {
-	// sess, err := session(writer, request)
-	// if err != nil {
-	// 	http.Redirect(writer, request, "/err", 302)
-	// 	return
-	// }
+	_, err := session(writer, request)
+	if err != nil {
+		danger(err, "セッションの確認に失敗しました")
+		http.Redirect(writer, request, "/err", 302)
+		return
+	}
 	user := data.User{
 		Uuid: request.FormValue("uuid"),
 		Name: request.FormValue("name"),
 	}
 	if user.Name == "" {
-		log.Print(user.Name)
-		log.Print(user.Uuid)
 		generateHTML(writer, user, "layout", "private.navbar", "mypage.edit.error")
 		return
 	}
-	file, _, err := request.FormFile("icon")
+	file, header, err := request.FormFile("icon")
 	if err != nil {
+		err = user.ChangeName()
+		if err != nil {
+			danger(err, "ユーザー名の変更に失敗しました")
+			http.Redirect(writer, request, "/err", 302)
+			return
+		} else {
+			http.Redirect(writer, request, "/mypage", 302)
+		}
+	}
+	defer file.Close()
+	data, err := ioutil.ReadAll(file)
+	if err != nil {
+		danger(err, "ファイルの読み込みに失敗しました")
 		http.Redirect(writer, request, "/err", 302)
 		return
 	}
-	defer file.Close()
-	http.Redirect(writer, request, "/", 302)
-	// data, err := ioutil.ReadAll(file)
+	iconUuid := data.CreateUUID()
+	filename := filepath.Join("icons", iconUuid+filepath.Ext(header.Filename))
+	err = ioutil.WriteFile(filename, data, 0777)
+	if err != nil {
+		danger(err, "ファイルの書き込みに失敗しました")
+		http.Redirect(writer, request, "/err", 302)
+		return
+	}
+	err = user.ChangeIcon(filename)
+	if err != nil {
+		danger(err, "アイコンの変更に失敗しました")
+		http.Redirect(writer, request, "/err", 302)
+		return
+	} else {
+		http.Redirect(writer, request, "/mypage", 302)
+	}
 }

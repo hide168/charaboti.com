@@ -17,6 +17,7 @@ type Configuration struct {
 	ReadTimeout  int64
 	WriteTimeout int64
 	Static       string
+	Icons        string
 }
 
 var config Configuration

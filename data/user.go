@@ -90,7 +90,7 @@ func (user *User) Create() (err error) {
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(createUUID(), user.Name, user.Email, Encrypt(user.Password), "default.jpg", time.Now())
+	_, err = stmt.Exec(CreateUUID(), user.Name, user.Email, Encrypt(user.Password), "default.jpg", time.Now())
 	return
 }
 
@@ -108,7 +108,7 @@ func (user *User) CreateSession() (session Session, err error) {
 		return
 	}
 	defer stmt.Close()
-	uuid := createUUID()
+	uuid := CreateUUID()
 	_, err = stmt.Exec(uuid, user.Email, user.Id, time.Now())
 	if err != nil {
 		return

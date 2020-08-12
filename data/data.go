@@ -21,7 +21,7 @@ func init() {
 	return
 }
 
-func createUUID() (uuid string) {
+func CreateUUID() (uuid string) {
 	u := new([16]byte)
 	_, err := rand.Read(u[:])
 	if err != nil {

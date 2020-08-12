@@ -73,7 +73,7 @@ func changeProfile(writer http.ResponseWriter, request *http.Request) {
 		http.Redirect(writer, request, "/err", 302)
 		return
 	}
-	iconUuid := data.createUUID()
+	iconUuid := data.CreateUUID()
 	filename := filepath.Join("icons", iconUuid+filepath.Ext(header.Filename))
 	err = ioutil.WriteFile(filename, dt, 0777)
 	if err != nil {

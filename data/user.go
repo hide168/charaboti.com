@@ -83,14 +83,14 @@ func (user *User) CheckPassword(wg *sync.WaitGroup, ch chan string, check chan b
 }
 
 func (user *User) Create() (err error) {
-	statement := "insert into users (uuid, name, email, password, created_at) values (?, ?, ?, ?, ?)"
+	statement := "insert into users (uuid, name, email, password, icon, created_at) values (?, ?, ?, ?, ?, ?)"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(createUUID(), user.Name, user.Email, Encrypt(user.Password), time.Now())
+	_, err = stmt.Exec(createUUID(), user.Name, user.Email, Encrypt(user.Password), "default.jpg", time.Now())
 	return
 }
 

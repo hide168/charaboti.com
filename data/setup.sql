@@ -7,8 +7,8 @@ create table users (
     name        varchar(255),
     email       varchar(255) not null unique,
     password    varchar(255) not null,
-    created_at  timestamp not null,
-    icon        varchar(255) not null unique
+    icon        varchar(255) not null unique,
+    created_at  timestamp not null
 );
 
 create table sessions (

@@ -64,6 +64,7 @@ func changeProfile(writer http.ResponseWriter, request *http.Request) {
 			return
 		} else {
 			http.Redirect(writer, request, "/mypage", 302)
+			return
 		}
 	}
 	defer file.Close()

@@ -14,6 +14,7 @@ type User struct {
 	Email           string
 	Password        string
 	ConfirmPassword string
+	Icon            string
 	CreatedAt       time.Time
 }
 
@@ -90,7 +91,7 @@ func (user *User) Create() (err error) {
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(CreateUUID(), user.Name, user.Email, Encrypt(user.Password), "default.jpg", time.Now())
+	_, err = stmt.Exec(CreateUUID(), user.Name, user.Email, Encrypt(user.Password), "/icons/default.jpg", time.Now())
 	return
 }
 
@@ -145,8 +146,8 @@ func (session *Session) DeleteByUUID() (err error) {
 
 func (session *Session) User() (user User, err error) {
 	user = User{}
-	err = Db.QueryRow("SELECT id, uuid, name, email, created_at FROM users WHERE id = ?", session.UserId).
-		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
+	err = Db.QueryRow("SELECT id, uuid, name, email, icon, created_at FROM users WHERE id = ?", session.UserId).
+		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Icon, &user.CreatedAt)
 	return
 }
 

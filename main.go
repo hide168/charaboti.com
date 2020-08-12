@@ -12,6 +12,8 @@ func main() {
 	mux := http.NewServeMux()
 	files := http.FileServer(http.Dir(config.Static))
 	mux.Handle("/static/", http.StripPrefix("/static/", files))
+	files = http.FileServer(http.Dir(config.Icons))
+	mux.Handle("/icons/", http.StripPrefix("/icons/", files))
 
 	//
 	// 以下に全てのルートパターンを記述しています
@@ -28,8 +30,11 @@ func main() {
 	mux.HandleFunc("/login", login)
 	mux.HandleFunc("/authenticate", authenticate)
 	mux.HandleFunc("/logout", logout)
+
+	// route_mypage.goで定義されています
 	mux.HandleFunc("/mypage", mypage)
 	mux.HandleFunc("/mypage_edit", mypageEdit)
+	mux.HandleFunc("/change_profile", changeProfile)
 
 	// サーバーの起動処理
 	server := &http.Server{

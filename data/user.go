@@ -14,6 +14,7 @@ type User struct {
 	Email           string
 	Password        string
 	ConfirmPassword string
+	Icon            string
 	CreatedAt       time.Time
 }
 
@@ -83,14 +84,14 @@ func (user *User) CheckPassword(wg *sync.WaitGroup, ch chan string, check chan b
 }
 
 func (user *User) Create() (err error) {
-	statement := "insert into users (uuid, name, email, password, created_at) values (?, ?, ?, ?, ?)"
+	statement := "insert into users (uuid, name, email, password, icon, created_at) values (?, ?, ?, ?, ?, ?)"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(createUUID(), user.Name, user.Email, Encrypt(user.Password), time.Now())
+	_, err = stmt.Exec(CreateUUID(), user.Name, user.Email, Encrypt(user.Password), "/icons/default.jpg", time.Now())
 	return
 }
 
@@ -108,7 +109,7 @@ func (user *User) CreateSession() (session Session, err error) {
 		return
 	}
 	defer stmt.Close()
-	uuid := createUUID()
+	uuid := CreateUUID()
 	_, err = stmt.Exec(uuid, user.Email, user.Id, time.Now())
 	if err != nil {
 		return
@@ -145,7 +146,31 @@ func (session *Session) DeleteByUUID() (err error) {
 
 func (session *Session) User() (user User, err error) {
 	user = User{}
-	err = Db.QueryRow("SELECT id, uuid, name, email, created_at FROM users WHERE id = ?", session.UserId).
-		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
+	err = Db.QueryRow("SELECT id, uuid, name, email, icon, created_at FROM users WHERE id = ?", session.UserId).
+		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Icon, &user.CreatedAt)
+	return
+}
+
+func (user *User) ChangeName() (err error) {
+	statement := "update users set name = ? where uuid = ?"
+	stmt, err := Db.Prepare(statement)
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(user.Name, user.Uuid)
+	return
+}
+
+func (user *User) ChangeIcon(icon string) (err error) {
+	statement := "update users set icon = ? where uuid = ?"
+	stmt, err := Db.Prepare(statement)
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(icon, user.Uuid)
 	return
 }

@@ -7,6 +7,7 @@ create table users (
     name        varchar(255),
     email       varchar(255) not null unique,
     password    varchar(255) not null,
+    icon        varchar(255) not null unique,
     created_at  timestamp not null
 );
 

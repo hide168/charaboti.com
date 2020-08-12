@@ -67,7 +67,7 @@ func changeProfile(writer http.ResponseWriter, request *http.Request) {
 		}
 	}
 	defer file.Close()
-	data, err := ioutil.ReadAll(file)
+	dt, err := ioutil.ReadAll(file)
 	if err != nil {
 		danger(err, "ファイルの読み込みに失敗しました")
 		http.Redirect(writer, request, "/err", 302)
@@ -75,7 +75,7 @@ func changeProfile(writer http.ResponseWriter, request *http.Request) {
 	}
 	iconUuid := data.CreateUUID()
 	filename := filepath.Join("icons", iconUuid+filepath.Ext(header.Filename))
-	err = ioutil.WriteFile(filename, data, 0777)
+	err = ioutil.WriteFile(filename, dt, 0777)
 	if err != nil {
 		danger(err, "ファイルの書き込みに失敗しました")
 		http.Redirect(writer, request, "/err", 302)

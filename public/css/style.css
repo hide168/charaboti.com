@@ -31,6 +31,11 @@
     color: #155724;
     border-radius: 0.25rem;
 }
+#login-character {
+    background-color: #b5bec7;
+    color: #14191d;
+    border-radius: 0.25rem;
+}
 #profile-image {
     border-radius: 50%;
 }

@@ -5,7 +5,6 @@
             <h2>キャラクターの埋葬</h2>
         </div>
         <form class="mt-5" role="form" action="/character/post" enctype="multipart/form-data" method="post">
-            <input type="hidden" name="uuid" value="{{ .Uuid }}">
             <div class="form-group">
                 <label for="InputImage">埋葬するキャラクター</label>
                 <input type="file" name="image" class="form-control-file" id="InputImage" accept="image/*">

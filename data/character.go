@@ -11,7 +11,7 @@ type Character struct {
 	CreatedAt time.Time
 }
 
-func (character *Character) Create(userId string) (err error) {
+func (character *Character) Create(userId int) (err error) {
 	statement := "insert into characters (uuid, text, user_id, image, created_at) values (?, ?, ?, ?, ?)"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {

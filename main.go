@@ -14,6 +14,8 @@ func main() {
 	mux.Handle("/static/", http.StripPrefix("/static/", files))
 	files = http.FileServer(http.Dir(config.Icons))
 	mux.Handle("/icons/", http.StripPrefix("/icons/", files))
+	files = http.FileServer(http.Dir(config.Characters))
+	mux.Handle("/characters/", http.StripPrefix("/characters/", files))
 
 	//
 	// 以下に全てのルートパターンを記述しています

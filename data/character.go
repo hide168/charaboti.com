@@ -48,7 +48,7 @@ func (character *Character) User() (user User) {
 
 func CharacterByUUID(uuid string) (character Character, err error) {
 	character = Character{}
-	err = Db.QueryRow("SELECT id, uuid, text, user_id, image, created_at FROM characters WHERE id = ?", uuid).
+	err = Db.QueryRow("SELECT id, uuid, text, user_id, image, created_at FROM characters WHERE uuid = ?", uuid).
 		Scan(&character.Id, &character.Uuid, &character.Text, &character.UserId, &character.Image, &character.CreatedAt)
 	return
 }

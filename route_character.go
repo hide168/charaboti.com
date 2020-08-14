@@ -82,7 +82,7 @@ func listCharacter(writer http.ResponseWriter, request *http.Request) {
 func detailCharacter(writer http.ResponseWriter, request *http.Request) {
 	vals := request.URL.Query()
 	uuid := vals.Get("uuid")
-	character, err := CharacterByUUID(uuid)
+	character, err := data.CharacterByUUID(uuid)
 	_, err = session(writer, request)
 	if err != nil {
 		generateHTML(writer, &character, "layout", "public.navbar", "character.detail")

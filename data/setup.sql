@@ -18,3 +18,12 @@ create table sessions (
     user_id     integer references users(id),
     created_at  timestamp not null
 );
+
+create table characters (
+  id         serial primary key,
+  uuid       varchar(64) not null unique,
+  text       text,
+  user_id    integer references users(id),
+  image      varchar(255) not null unique,
+  created_at timestamp not null       
+);

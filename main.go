@@ -14,6 +14,8 @@ func main() {
 	mux.Handle("/static/", http.StripPrefix("/static/", files))
 	files = http.FileServer(http.Dir(config.Icons))
 	mux.Handle("/icons/", http.StripPrefix("/icons/", files))
+	files = http.FileServer(http.Dir(config.Characters))
+	mux.Handle("/characters/", http.StripPrefix("/characters/", files))
 
 	//
 	// 以下に全てのルートパターンを記述しています
@@ -35,6 +37,11 @@ func main() {
 	mux.HandleFunc("/mypage", mypage)
 	mux.HandleFunc("/mypage_edit", mypageEdit)
 	mux.HandleFunc("/change_profile", changeProfile)
+
+	// route_character.goで定義されています
+	mux.HandleFunc("/character/new", newCharacter)
+	mux.HandleFunc("/character/post", postCharacter)
+	mux.HandleFunc("/character/list", listCharacter)
 
 	// サーバーの起動処理
 	server := &http.Server{

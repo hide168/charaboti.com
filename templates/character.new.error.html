@@ -1,0 +1,25 @@
+{{ define "content" }}
+<section id="character-new-error">
+    <div class="container mb-135 mt-135 m-width-800">
+        <div class="container align-items-center justify-content-center text-center py-2 my-3" id="signup-error">
+            <h4>画像が選択されていません</h4>
+        </div>
+        <div class="align-items-center justify-content-center text-center">
+            <h2>キャラクターの埋葬</h2>
+        </div>
+        <form class="mt-5" role="form" action="/character/post" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+                <label for="InputImage">埋葬するキャラクター</label>
+                <input type="file" name="image" class="form-control-file" id="InputImage" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="InputText">キャラクターの概要</label>
+                <textarea name="text" class="form-control" rows="8" id="InputText">名前：&#13;身長：&#13;年齢：&#13;説明：</textarea>
+            </div>
+            <div class="mt-5 align-items-center justify-content-center text-center">
+                <button type="submit" class="btn btn-info btn-lg">埋葬</button>
+            </div>
+        </form>
+    </div>
+</section>
+{{ end }}

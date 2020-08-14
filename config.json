@@ -3,5 +3,6 @@
     "ReadTimeout"   : 10,
     "WriteTimeout"  : 600,
     "Static"        : "public",
-    "Icons"         : "icons"
+    "Icons"         : "icons",
+    "Characters"    : "characters"
 }

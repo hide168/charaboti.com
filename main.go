@@ -39,6 +39,7 @@ func main() {
 	// route_character.goで定義されています
 	mux.HandleFunc("/character/new", newCharacter)
 	mux.HandleFunc("/character/post", postCharacter)
+	mux.HandleFunc("/character/list", listCharacter)
 
 	// サーバーの起動処理
 	server := &http.Server{

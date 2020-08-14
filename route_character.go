@@ -63,3 +63,18 @@ func postCharacter(writer http.ResponseWriter, request *http.Request) {
 	}
 	generateHTML(writer, nil, "layout", "private.navbar", "character.new.complete")
 }
+
+func listCharacter(writer http.ResponseWriter, request *http.Request) {
+	characters, err := data.Characters()
+	if err != nil {
+		danger(err, "キャラクターの取得に失敗しました")
+		http.Redirect(writer, request, "/err", 302)
+		return
+	}
+	_, err = session(writer, request)
+	if err != nil {
+		generateHTML(writer, &characters, "layout", "public.navbar", "character.list")
+	} else {
+		generateHTML(writer, &characters, "layout", "private.navbar", "character.list")
+	}
+}

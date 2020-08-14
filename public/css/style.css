@@ -42,17 +42,24 @@
 #profile-image {
     border-radius: 50%;
 }
+.character-text {
+    white-space: pre-wrap;
+    font-size: larger;
+}
+.font-size-large {
+    font-size: 30px;
+}
 .mt-135 {
     margin-top: 135px;
 }
 .mb-135 {
     margin-bottom: 135px;
 }
-.m-width-700 {
-    max-width: 700px !important;
-}
 .m-width-800 {
     max-width: 800px !important;
+}
+.m-width-500 {
+    max-width: 500px !important;
 }
 .text-black {
     color: black;

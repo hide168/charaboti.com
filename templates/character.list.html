@@ -5,7 +5,7 @@
         <div class="row align-items-center justify-content-start">
             {{ range . }}
             <div class="col-md-3">
-                <a href="/"><img class="img-fluid" src="{{ .Image }}" width="250" height="250" alt="" id="character-image"></a>
+                <a href="/character/detail?uuid={{ .Uuid }}"><img class="img-fluid" src="{{ .Image }}" width="250" height="250" alt="" id="character-image"></a>
                 <div class="mb-3 mt-2"><img src="{{ .User.Icon }}" class="mr-2 mb-1" width="20" height="20" alt="" id="profile-image">{{ .User.Name }}</div>
             </div>
             {{ end }}

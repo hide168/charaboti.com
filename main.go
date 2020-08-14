@@ -42,6 +42,7 @@ func main() {
 	mux.HandleFunc("/character/new", newCharacter)
 	mux.HandleFunc("/character/post", postCharacter)
 	mux.HandleFunc("/character/list", listCharacter)
+	mux.HandleFunc("/character/detail", detailCharacter)
 
 	// サーバーの起動処理
 	server := &http.Server{

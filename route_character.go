@@ -83,6 +83,11 @@ func detailCharacter(writer http.ResponseWriter, request *http.Request) {
 	vals := request.URL.Query()
 	uuid := vals.Get("uuid")
 	character, err := data.CharacterByUUID(uuid)
+	if err != nil {
+		danger(err, "キャラクターの取得に失敗しました")
+		http.Redirect(writer, request, "/err", 302)
+		return
+	}
 	_, err = session(writer, request)
 	if err != nil {
 		generateHTML(writer, &character, "layout", "public.navbar", "character.detail")

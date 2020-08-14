@@ -45,3 +45,10 @@ func (character *Character) User() (user User) {
 		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Password, &user.Icon, &user.CreatedAt)
 	return
 }
+
+func CharacterByUUID(uuid string) (character Character, err error) {
+	character = Character{}
+	err = Db.QueryRow("SELECT id, uuid, text, user_id, image, created_at FROM users WHERE id = ?", uuid).
+		Scan(&character.Id, &character.Uuid, &character.Text, &character.UserId, &character.Image, &character.CreatedAt)
+	return
+}

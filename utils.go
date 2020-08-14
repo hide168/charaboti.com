@@ -18,6 +18,7 @@ type Configuration struct {
 	WriteTimeout int64
 	Static       string
 	Icons        string
+	Characters   string
 }
 
 var config Configuration

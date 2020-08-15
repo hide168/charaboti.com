@@ -20,6 +20,7 @@ func (character *Character) Create(userId int) (err error) {
 	}
 	defer stmt.Close()
 
+	var name string
 	if character.Name == "" {
 		name := "名無し"
 	} else {

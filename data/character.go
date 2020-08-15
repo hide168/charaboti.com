@@ -62,8 +62,8 @@ func CharacterByUUID(uuid string) (character Character, err error) {
 }
 
 func Search(word string) (characters []Character, err error) {
-	rows, err := Db.Query("SELECT id, uuid, name, text, user_id, image, created_at FROM characters WHERE name LIKE ?", fmt.Sprintf("'%%%s%%'", word))
-	test := fmt.Sprintf("'%%%s%%'", word)
+	rows, err := Db.Query("SELECT id, uuid, name, text, user_id, image, created_at FROM characters WHERE name LIKE ?", fmt.Sprintf("%%%s%%", word))
+	test := fmt.Sprintf("%%%s%%", word)
 	log.Print(test) //動作テスト
 	if err != nil {
 		return

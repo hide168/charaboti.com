@@ -52,6 +52,7 @@ func postCharacter(writer http.ResponseWriter, request *http.Request) {
 	}
 	filename = "/" + filename
 	character := data.Character{
+		Name:  request.FormValue("name"),
 		Text:  request.FormValue("text"),
 		Image: filename,
 	}
@@ -93,5 +94,25 @@ func detailCharacter(writer http.ResponseWriter, request *http.Request) {
 		generateHTML(writer, &character, "layout", "public.navbar", "character.detail")
 	} else {
 		generateHTML(writer, &character, "layout", "private.navbar", "character.detail")
+	}
+}
+func searchCharacter(writer http.ResponseWriter, request *http.Request) {
+	err := request.ParseForm()
+	if err != nil {
+		danger(err, "フォームのパースに失敗しました")
+		http.Redirect(writer, request, "/err", 302)
+		return
+	}
+	characters, err := data.Search(request.PostFormValue("search"))
+	if err != nil {
+		danger(err, "キャラクターの取得に失敗しました")
+		http.Redirect(writer, request, "/err", 302)
+		return
+	}
+	_, err = session(writer, request)
+	if err != nil {
+		generateHTML(writer, &characters, "layout", "public.navbar", "character.search")
+	} else {
+		generateHTML(writer, &characters, "layout", "private.navbar", "character.search")
 	}
 }

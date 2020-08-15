@@ -22,6 +22,7 @@ create table sessions (
 create table characters (
   id         serial primary key,
   uuid       varchar(64) not null unique,
+  name       varchar(255),
   text       text,
   user_id    integer references users(id),
   image      varchar(255) not null unique,

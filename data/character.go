@@ -1,10 +1,14 @@
 package data
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 type Character struct {
 	Id        int
 	Uuid      string
+	Name      string
 	Text      string
 	UserId    int
 	Image     string
@@ -12,25 +16,28 @@ type Character struct {
 }
 
 func (character *Character) Create(userId int) (err error) {
-	statement := "insert into characters (uuid, text, user_id, image, created_at) values (?, ?, ?, ?, ?)"
+	statement := "insert into characters (uuid, name, text, user_id, image, created_at) values (?, ?, ?, ?, ?, ?)"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(CreateUUID(), character.Text, userId, character.Image, time.Now())
+	if character.Name == "" {
+		character.Name = "名無し"
+	}
+	_, err = stmt.Exec(CreateUUID(), character.Name, character.Text, userId, character.Image, time.Now())
 	return
 }
 
 func Characters() (characters []Character, err error) {
-	rows, err := Db.Query("SELECT id, uuid, text, user_id, image, created_at FROM characters ORDER BY created_at DESC")
+	rows, err := Db.Query("SELECT id, uuid, name, text, user_id, image, created_at FROM characters ORDER BY created_at DESC")
 	if err != nil {
 		return
 	}
 	for rows.Next() {
 		conv := Character{}
-		if err = rows.Scan(&conv.Id, &conv.Uuid, &conv.Text, &conv.UserId, &conv.Image, &conv.CreatedAt); err != nil {
+		if err = rows.Scan(&conv.Id, &conv.Uuid, &conv.Name, &conv.Text, &conv.UserId, &conv.Image, &conv.CreatedAt); err != nil {
 			return
 		}
 		characters = append(characters, conv)
@@ -48,7 +55,23 @@ func (character *Character) User() (user User) {
 
 func CharacterByUUID(uuid string) (character Character, err error) {
 	character = Character{}
-	err = Db.QueryRow("SELECT id, uuid, text, user_id, image, created_at FROM characters WHERE uuid = ?", uuid).
-		Scan(&character.Id, &character.Uuid, &character.Text, &character.UserId, &character.Image, &character.CreatedAt)
+	err = Db.QueryRow("SELECT id, uuid, name, text, user_id, image, created_at FROM characters WHERE uuid = ?", uuid).
+		Scan(&character.Id, &character.Uuid, &character.Name, &character.Text, &character.UserId, &character.Image, &character.CreatedAt)
+	return
+}
+
+func Search(word string) (characters []Character, err error) {
+	rows, err := Db.Query("SELECT id, uuid, name, text, user_id, image, created_at FROM characters WHERE name LIKE ? ORDER BY created_at DESC", fmt.Sprintf("%%%s%%", word))
+	if err != nil {
+		return
+	}
+	for rows.Next() {
+		conv := Character{}
+		if err = rows.Scan(&conv.Id, &conv.Uuid, &conv.Name, &conv.Text, &conv.UserId, &conv.Image, &conv.CreatedAt); err != nil {
+			return
+		}
+		characters = append(characters, conv)
+	}
+	rows.Close()
 	return
 }

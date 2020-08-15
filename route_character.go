@@ -52,6 +52,7 @@ func postCharacter(writer http.ResponseWriter, request *http.Request) {
 	}
 	filename = "/" + filename
 	character := data.Character{
+		Name:  request.FormValue("name"),
 		Text:  request.FormValue("text"),
 		Image: filename,
 	}

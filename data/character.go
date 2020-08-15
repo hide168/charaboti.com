@@ -52,3 +52,19 @@ func CharacterByUUID(uuid string) (character Character, err error) {
 		Scan(&character.Id, &character.Uuid, &character.Text, &character.UserId, &character.Image, &character.CreatedAt)
 	return
 }
+
+func Search(word string) (characters []Character, err error) {
+	rows, err := Db.Query("SELECT id, uuid, text, user_id, image, created_at FROM characters WHERE name LIKE = "%?%"", word)
+	if err != nil {
+		return
+	}
+	for rows.Next() {
+		conv := Character{}
+		if err = rows.Scan(&conv.Id, &conv.Uuid, &conv.Text, &conv.UserId, &conv.Image, &conv.CreatedAt); err != nil {
+			return
+		}
+		characters = append(characters, conv)
+	}
+	rows.Close()
+	return
+}

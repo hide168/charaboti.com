@@ -20,13 +20,10 @@ func (character *Character) Create(userId int) (err error) {
 	}
 	defer stmt.Close()
 
-	var name string
 	if character.Name == "" {
-		name := "名無し"
-	} else {
-		name := character.Name
+		character.Name = "名無し"
 	}
-	_, err = stmt.Exec(CreateUUID(), name, character.Text, userId, character.Image, time.Now())
+	_, err = stmt.Exec(CreateUUID(), character.Name, character.Text, userId, character.Image, time.Now())
 	return
 }
 

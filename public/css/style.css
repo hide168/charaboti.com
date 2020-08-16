@@ -68,7 +68,7 @@
 .m-width-500 {
     max-width: 500px !important;
 }
-.m-width-150 {
+.m-width-200 {
     max-width: 200px;
 }
 @media (max-width: 767px) {

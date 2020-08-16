@@ -13,7 +13,7 @@ func index(writer http.ResponseWriter, request *http.Request) {
 		http.Redirect(writer, request, "/err", 302)
 		return
 	}
-	_, err := session(writer, request)
+	_, err = session(writer, request)
 	if err != nil {
 		generateHTML(writer, &characters, "layout", "public.navbar", "index")
 	} else {

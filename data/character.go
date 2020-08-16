@@ -77,7 +77,7 @@ func Search(word string) (characters []Character, err error) {
 }
 
 func NewCharacters() (characters []Character, err error) {
-	rows, err := Db.Query("SELECT id, uuid, name, text, user_id, image, created_at FROM characters ORDER BY created_at DESC LIMIT 5")
+	rows, err := Db.Query("SELECT id, uuid, name, text, user_id, image, created_at FROM characters ORDER BY created_at DESC LIMIT 4")
 	if err != nil {
 		return
 	}

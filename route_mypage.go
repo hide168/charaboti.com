@@ -19,7 +19,7 @@ func mypage(writer http.ResponseWriter, request *http.Request) {
 			danger(err, "セッションからユーザーを取得出来ませんでした")
 			http.Redirect(writer, request, "/err", 302)
 		} else {
-			generateHTML(writer, user, "layout", "private.navbar", "mypage")
+			generateHTML(writer, &user, "layout", "private.navbar", "mypage")
 		}
 	}
 }

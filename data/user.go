@@ -113,6 +113,7 @@ func (user *User) CreateSession() (err error) {
 	if err != nil {
 		return
 	}
+	return
 }
 
 func (user *User) SessionByUser() (session Session, err error) {

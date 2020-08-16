@@ -66,9 +66,13 @@ func authenticate(writer http.ResponseWriter, request *http.Request) {
 		danger(err, "ユーザーが見つかりません")
 	}
 	if user.Password == data.Encrypt(request.PostFormValue("password")) {
-		session, err := user.CreateSession()
+		err = user.CreateSession()
 		if err != nil {
 			danger(err, "セッションの生成に失敗しました")
+		}
+		session, err := user.SessionByUser()
+		if err != nil {
+			danger(err, "セッションの選択に失敗しました")
 		}
 		cookie := http.Cookie{
 			Name:     "_cookie",

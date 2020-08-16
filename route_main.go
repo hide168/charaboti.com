@@ -1,13 +1,23 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/hide168/charaboti.com/data"
+)
 
 func index(writer http.ResponseWriter, request *http.Request) {
+	characters, err := data.NewCharacters()
+	if err != nil {
+		danger(err, "キャラクターの取得に失敗しました")
+		http.Redirect(writer, request, "/err", 302)
+		return
+	}
 	_, err := session(writer, request)
 	if err != nil {
-		generateHTML(writer, nil, "layout", "public.navbar", "index")
+		generateHTML(writer, &characters, "layout", "public.navbar", "index")
 	} else {
-		generateHTML(writer, nil, "layout", "private.navbar", "index")
+		generateHTML(writer, &characters, "layout", "private.navbar", "index")
 	}
 }
 

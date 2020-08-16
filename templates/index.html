@@ -20,20 +20,17 @@
     </div>
 </header>
 
-<section class="page-section" id="popular-character">
-    <div class="container mt-5 m-width-800">
-        <h3>人気のキャラクター</h3>
-        <div class="popular-contents row">
-
-        </div>
-    </div>
-</section>
-
-<section class="page-section" id="newest-character">
+<section class="page-section mb-135" id="newest-character">
     <div class="container mt-5 m-width-800">
         <h3>新規のキャラクター</h3>
-        <div class="popular-contents row">
-
+        <div class="popular-contents row align-items-center justify-content-start">
+            {{ range . }}
+            <div class="col-md-3">
+                <a href="/character/detail?uuid={{ .Uuid }}"><img src="{{ .Image }}" width="150" height="150" alt="" id="character-image"></a>
+                <div class="character-name">{{ .Name }}</div>
+                <div class="mb-3 mt-2"><img src="{{ .User.Icon }}" class="mr-2 mb-1" width="20" height="20" alt="" id="profile-image">{{ .User.Name }}</div>
+            </div>
+            {{ end }}
         </div>
     </div>
 </section>

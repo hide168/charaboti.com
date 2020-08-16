@@ -96,6 +96,7 @@ func detailCharacter(writer http.ResponseWriter, request *http.Request) {
 		generateHTML(writer, &character, "layout", "private.navbar", "character.detail")
 	}
 }
+
 func searchCharacter(writer http.ResponseWriter, request *http.Request) {
 	err := request.ParseForm()
 	if err != nil {

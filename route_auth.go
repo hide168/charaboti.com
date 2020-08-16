@@ -71,9 +71,9 @@ func authenticate(writer http.ResponseWriter, request *http.Request) {
 			danger(err, "セッションの生成に失敗しました")
 		}
 		cookie := http.Cookie{
-			Name:  "_cookie",
-			Value: session.Uuid,
-			// HttpOnly: true,
+			Name:     "_cookie",
+			Value:    session.Uuid,
+			HttpOnly: true,
 		}
 		http.SetCookie(writer, &cookie)
 		http.Redirect(writer, request, "/", 302)

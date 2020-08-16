@@ -102,22 +102,19 @@ func UserByEmail(email string) (user User, err error) {
 	return
 }
 
-func (user *User) CreateSession() (err error) {
+func (user *User) CreateSession() (session Session, err error) {
 	statement := "insert into sessions (uuid, email, user_id, created_at) values (?, ?, ?, ?)"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(CreateUUID(), user.Email, user.Id, time.Now())
+	uuid := CreateUUID()
+	_, err = stmt.Exec(uuid, user.Email, user.Id, time.Now())
 	if err != nil {
 		return
 	}
-	return
-}
-
-func (user *User) SessionByUser() (session Session, err error) {
-	err = Db.QueryRow("SELECT id, uuid, email, user_id, created_at FROM sessions WHERE user_id = ?", user.Id).
+	err = Db.QueryRow("SELECT id, uuid, email, user_id, created_at FROM sessions WHERE uuid = ?", uuid).
 		Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
 	return
 }

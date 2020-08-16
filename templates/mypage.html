@@ -7,9 +7,15 @@
             <a class="btn btn-primary mt-4" href="/mypage_edit">編集する</a>
         </div>
         <div class="mt-5">
-            <h3>ブックマーク</h3>
-            <div class="bookmark-contents row">
-    
+            <h3>埋葬したキャラクター</h3>
+            <div class="row align-items-center justify-content-start">
+                {{ range .Characters }}
+                <div class="col-md-3">
+                    <a href="/character/detail?uuid={{ .Uuid }}"><img src="{{ .Image }}" width="150" height="150" alt="" id="character-image"></a>
+                    <div class="character-name">{{ .Name }}</div>
+                    <div class="mb-3 mt-2"><img src="{{ .User.Icon }}" class="mr-2 mb-1" width="20" height="20" alt="" id="profile-image">{{ .User.Name }}</div>
+                </div>
+                {{ end }}
             </div>
         </div>
     </div>

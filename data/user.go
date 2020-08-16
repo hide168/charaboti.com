@@ -174,3 +174,19 @@ func (user *User) ChangeIcon(icon string) (err error) {
 	_, err = stmt.Exec(icon, user.Uuid)
 	return
 }
+
+func (user *User) Characters() (characters []Character) {
+	rows, err := Db.Query("SELECT id, uuid, name, text, user_id, image, created_at FROM characters WHERE user_id = ? ORDER BY created_at DESC", user.Id)
+	if err != nil {
+		return
+	}
+	for rows.Next() {
+		conv := Character{}
+		if err = rows.Scan(&conv.Id, &conv.Uuid, &conv.Name, &conv.Text, &conv.UserId, &conv.Image, &conv.CreatedAt); err != nil {
+			return
+		}
+		characters = append(characters, conv)
+	}
+	rows.Close()
+	return
+}

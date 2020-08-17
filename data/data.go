@@ -8,7 +8,6 @@ import (
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/hide168/charaboti.com/data"
 )
 
 var Db *sql.DB
@@ -18,21 +17,6 @@ func init() {
 	Db, err = sql.Open("mysql", "root:golang@tcp(mysql-container:3306)/mysql?parseTime=true&loc=Asia%2FTokyo")
 	if err != nil {
 		log.Fatal(err)
-	}
-	user := data.User{
-		Name:     "テストユーザー",
-		Email:    "test@mail.com",
-		Password: "testuser",
-	}
-	var count int
-	err := Db.QueryRow("select count(*) from users where name = ?", user.Name).Scan(&count)
-	if err != nil {
-		log.Fatal(err)
-	}
-	if count == 0 {
-		if err := user.Create(); err != nil {
-			log.Fatal(err)
-		}
 	}
 	return
 }

@@ -11,8 +11,7 @@ import (
 func mypage(writer http.ResponseWriter, request *http.Request) {
 	sess, err := session(writer, request)
 	if err != nil {
-		danger(err, "セッションの確認に失敗しました")
-		http.Redirect(writer, request, "/err", 302)
+		generateHTML(writer, nil, "layout", "public.navbar", "login.no-signup")
 	} else {
 		user, err := sess.User()
 		if err != nil {
@@ -27,17 +26,19 @@ func mypage(writer http.ResponseWriter, request *http.Request) {
 func mypageEdit(writer http.ResponseWriter, request *http.Request) {
 	sess, err := session(writer, request)
 	if err != nil {
-		danger(err, "セッションの確認に失敗しました")
-		http.Redirect(writer, request, "/err", 302)
-	} else {
-		user, err := sess.User()
-		if err != nil {
-			danger(err, "セッションからユーザーを取得出来ませんでした")
-			http.Redirect(writer, request, "/err", 302)
-		} else {
-			generateHTML(writer, user, "layout", "private.navbar", "mypage.edit")
-		}
+		generateHTML(writer, nil, "layout", "public.navbar", "login.no-signup")
+		return
 	}
+	user, err := sess.User()
+	if err != nil {
+		danger(err, "セッションからユーザーを取得出来ませんでした")
+		http.Redirect(writer, request, "/err", 302)
+		return
+	}
+	if user.Email == "test@mail.com" && user.Password == "testuser" {
+		generateHTML(writer, nil, "layout", "private.navbar", "mypage.test-user")
+	}
+	generateHTML(writer, user, "layout", "private.navbar", "mypage.edit")
 }
 
 func changeProfile(writer http.ResponseWriter, request *http.Request) {

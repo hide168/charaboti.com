@@ -1,5 +1,6 @@
 drop table users;
 drop table sessions;
+drop table characters;
 
 create table users (
     id          serial primary key,

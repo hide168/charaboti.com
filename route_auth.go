@@ -91,3 +91,23 @@ func logout(writer http.ResponseWriter, request *http.Request) {
 	}
 	http.Redirect(writer, request, "/", 302)
 }
+
+func testLogin(writer http.ResponseWriter, request *http.Request) {
+	user, err := data.UserByEmail("test@mail.com")
+	if err != nil {
+		danger(err, "ユーザーが見つかりません")
+	}
+	session, err := user.CreateSession()
+	if err != nil {
+		danger(err, "セッションの生成に失敗しました")
+		http.Redirect(writer, request, "/err", 302)
+		return
+	}
+	cookie := http.Cookie{
+		Name:     "_cookie",
+		Value:    session.Uuid,
+		HttpOnly: true,
+	}
+	http.SetCookie(writer, &cookie)
+	http.Redirect(writer, request, "/", 302)
+}

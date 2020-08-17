@@ -21,9 +21,10 @@ func main() {
 	// 以下に全てのルートパターンを記述しています
 	// ルートハンドラー関数は他のファイルに定義しています
 
-	// index
+	// route_main.goで定義されています
 	mux.HandleFunc("/", index)
-	// error
+	mux.HandleFunc("/terms", terms)
+	mux.HandleFunc("/privacy", privacy)
 	mux.HandleFunc("/err", err)
 
 	// route_auth.goで定義されています

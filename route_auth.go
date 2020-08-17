@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"sync"
 
@@ -93,7 +94,22 @@ func logout(writer http.ResponseWriter, request *http.Request) {
 }
 
 func testLogin(writer http.ResponseWriter, request *http.Request) {
-	user, err := data.UserByEmail("test@mail.com")
+	user := data.User{
+		Name:     "テストユーザー",
+		Email:    "test@mail.com",
+		Password: "testuser",
+	}
+	var count int
+	err := data.Db.QueryRow("select count(*) from users where name = ?", user.Name).Scan(&count)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if count == 0 {
+		if err := user.Create(); err != nil {
+			log.Fatal(err)
+		}
+	}
+	user, err = data.UserByEmail("test@mail.com")
 	if err != nil {
 		danger(err, "ユーザーが見つかりません")
 	}

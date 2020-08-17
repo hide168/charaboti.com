@@ -21,6 +21,24 @@ func index(writer http.ResponseWriter, request *http.Request) {
 	}
 }
 
+func terms(writer http.ResponseWriter, request *http.Request) {
+	_, err := session(writer, request)
+	if err != nil {
+		generateHTML(writer, nil, "layout", "public.navbar", "terms")
+	} else {
+		generateHTML(writer, nil, "layout", "private.navbar", "terms")
+	}
+}
+
+func privacy(writer http.ResponseWriter, request *http.Request) {
+	_, err := session(writer, request)
+	if err != nil {
+		generateHTML(writer, nil, "layout", "public.navbar", "privacy")
+	} else {
+		generateHTML(writer, nil, "layout", "private.navbar", "privacy")
+	}
+}
+
 func err(writer http.ResponseWriter, request *http.Request) {
 	_, err := session(writer, request)
 	if err != nil {

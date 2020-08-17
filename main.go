@@ -43,6 +43,7 @@ func main() {
 	mux.HandleFunc("/character/post", postCharacter)
 	mux.HandleFunc("/character/list", listCharacter)
 	mux.HandleFunc("/character/detail", detailCharacter)
+	mux.HandleFunc("/character/delete", deleteCharacter)
 	mux.HandleFunc("/character/search", searchCharacter)
 
 	// サーバーの起動処理

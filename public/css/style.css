@@ -44,7 +44,7 @@
     object-fit: cover;
     border-radius: 50%;
 }
-.character-name {
+.name-check {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -67,6 +67,15 @@
 }
 .m-width-500 {
     max-width: 500px !important;
+}
+.m-width-200 {
+    max-width: 200px;
+}
+@media (max-width: 767px) {
+    .m-center {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 .text-black {
     color: black;

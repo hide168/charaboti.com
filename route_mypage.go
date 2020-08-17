@@ -35,8 +35,9 @@ func mypageEdit(writer http.ResponseWriter, request *http.Request) {
 		http.Redirect(writer, request, "/err", 302)
 		return
 	}
-	if user.Email == "test@mail.com" && user.Password == "testuser" {
+	if user.Email == "test@mail.com" {
 		generateHTML(writer, nil, "layout", "private.navbar", "mypage.test-user")
+		return
 	}
 	generateHTML(writer, user, "layout", "private.navbar", "mypage.edit")
 }

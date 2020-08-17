@@ -89,7 +89,7 @@ func detailCharacter(writer http.ResponseWriter, request *http.Request) {
 		http.Redirect(writer, request, "/err", 302)
 		return
 	}
-	sess, err = session(writer, request)
+	sess, err := session(writer, request)
 	if err != nil {
 		generateHTML(writer, &character, "layout", "public.navbar", "character.detail")
 	} else {

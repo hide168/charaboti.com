@@ -110,10 +110,11 @@ func detailCharacter(writer http.ResponseWriter, request *http.Request) {
 func deleteCharacter(writer http.ResponseWriter, request *http.Request) {
 	vals := request.URL.Query()
 	uuid := vals.Get("uuid")
-	err := data.DeleteByUUID(uuid)
+	err := data.DeleteCharacterByUUID(uuid)
 	if err != nil {
 		danger(err, "キャラクターの削除に失敗しました")
 		http.Redirect(writer, request, "/err", 302)
+		return
 	} else {
 		_, err = session(writer, request)
 		if err != nil {

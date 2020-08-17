@@ -60,7 +60,7 @@ func CharacterByUUID(uuid string) (character Character, err error) {
 	return
 }
 
-func DeleteByUUID(uuid string) (err error) {
+func DeleteCharacterByUUID(uuid string) (err error) {
 	statement := "delete from characters where uuid = ?"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {

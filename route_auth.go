@@ -100,7 +100,7 @@ func testLogin(writer http.ResponseWriter, request *http.Request) {
 		Password: "testuser",
 	}
 	var count int
-	err := Db.QueryRow("select count(*) from users where name = ?", user.Name).Scan(&count)
+	err := data.Db.QueryRow("select count(*) from users where name = ?", user.Name).Scan(&count)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -109,7 +109,7 @@ func testLogin(writer http.ResponseWriter, request *http.Request) {
 			log.Fatal(err)
 		}
 	}
-	user, err := data.UserByEmail("test@mail.com")
+	user, err = data.UserByEmail("test@mail.com")
 	if err != nil {
 		danger(err, "ユーザーが見つかりません")
 	}

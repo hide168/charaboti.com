@@ -1,5 +1,5 @@
 {{ define "content" }}
-<form class="container mb-135 mt-135 m-width-800" role="form" action="/authenticate" method="post">
+<form class="container mt-135 m-width-800" role="form" action="/authenticate" method="post">
     <div class="form-group">
         <label for="InputEmail">メールアドレス</label>
         <input type="email" name="email" class="form-control" id="InputEmail">
@@ -12,7 +12,7 @@
     </div>
     <button type="submit" class="btn btn-primary">ログイン</button>
 </form>
-<div class="align-self-baseline mt-5 container text-center">
+<div class="align-self-baseline mt-5 mb-135 container text-center">
     <a class="btn btn-secondary btn-lg" href="/test_login">お試しログインができます！</a>
 </div>
 {{ end }}

@@ -93,15 +93,9 @@ func logout(writer http.ResponseWriter, request *http.Request) {
 }
 
 func testLogin(writer http.ResponseWriter, request *http.Request) {
-	user := data.User{
-		Name:     "テストユーザー",
-		Email:    "test@mail.com",
-		Password: "testuser",
-	}
-	if err := user.Create(); err != nil {
-		danger(err, "テストユーザーの作成に失敗しました")
-		http.Redirect(writer, request, "/err", 302)
-		return
+	user, err := data.UserByEmail("test@mail.com")
+	if err != nil {
+		danger(err, "ユーザーが見つかりません")
 	}
 	session, err := user.CreateSession()
 	if err != nil {

@@ -94,6 +94,11 @@ func detailCharacter(writer http.ResponseWriter, request *http.Request) {
 		generateHTML(writer, &character, "layout", "public.navbar", "character.detail")
 	} else {
 		user, err := sess.User()
+		if err != nil {
+			danger(err, "ユーザーの取得に失敗しました")
+			http.Redirect(writer, request, "/err", 302)
+			return
+		}
 		if user.Id == character.UserId {
 			generateHTML(writer, &character, "layout", "private.navbar", "character.detail.delete")
 		} else {

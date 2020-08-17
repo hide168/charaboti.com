@@ -60,6 +60,18 @@ func CharacterByUUID(uuid string) (character Character, err error) {
 	return
 }
 
+func DeleteByUUID(uuid string) (err error) {
+	statement := "delete from characters where uuid = ?"
+	stmt, err := Db.Prepare(statement)
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(uuid)
+	return
+}
+
 func Search(word string) (characters []Character, err error) {
 	rows, err := Db.Query("SELECT id, uuid, name, text, user_id, image, created_at FROM characters WHERE name LIKE ? ORDER BY created_at DESC", fmt.Sprintf("%%%s%%", word))
 	if err != nil {

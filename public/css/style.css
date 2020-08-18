@@ -1,3 +1,6 @@
+body {
+    font-family: 'Nico Moji', 'Noto Sans JP', sans-serif !important;
+}
 .navbar {
     background-color: black;
 }

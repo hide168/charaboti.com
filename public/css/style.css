@@ -1,3 +1,6 @@
+body {
+    font-family: 'Noto Sans JP', sans-serif !important;
+}
 .navbar {
     background-color: black;
 }
@@ -51,6 +54,7 @@
 }
 .character-text {
     white-space: pre-wrap;
+    word-wrap: break-word;
     font-size: larger;
 }
 .font-size-large {

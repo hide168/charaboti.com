@@ -95,10 +95,57 @@ func (user *User) Create() (err error) {
 	return
 }
 
+func (user *User) Delete() (err error) {
+	statement := "delete from users where email = ?"
+	stmt, err := Db.Prepare(statement)
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(user.Email)
+	return
+}
+
+func (user *User) Update() (err error) {
+	statement := "update users set name = ? where email = ?"
+	stmt, err := Db.Prepare(statement)
+	if err != nil {
+		return
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(user.Name, user.Email)
+	return
+}
+
 func UserByEmail(email string) (user User, err error) {
 	user = User{}
 	err = Db.QueryRow("SELECT id, uuid, name, email, password, created_at FROM users WHERE email = ?", email).
 		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Password, &user.CreatedAt)
+	return
+}
+
+func UserByUUID(uuid string) (user User, err error) {
+	user = User{}
+	err = Db.QueryRow("SELECT id, uuid, name, email, password, created_at FROM users WHERE uuid = ?", uuid).
+		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Password, &user.CreatedAt)
+	return
+}
+
+func Users() (users []User, err error) {
+	rows, err := Db.Query("SELECT id, uuid, name, email, password, created_at FROM users")
+	if err != nil {
+		return
+	}
+	for rows.Next() {
+		user := User{}
+		if err = rows.Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.Password, &user.CreatedAt); err != nil {
+			return
+		}
+		users = append(users, user)
+	}
+	rows.Close()
 	return
 }
 
@@ -115,6 +162,13 @@ func (user *User) CreateSession() (session Session, err error) {
 		return
 	}
 	err = Db.QueryRow("SELECT id, uuid, email, user_id, created_at FROM sessions WHERE uuid = ?", uuid).
+		Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
+	return
+}
+
+func (user *User) Session() (session Session, err error) {
+	session = Session{}
+	err = Db.QueryRow("SELECT id, uuid, email, user_id, created_at FROM sessions WHERE user_id = ?", user.Id).
 		Scan(&session.Id, &session.Uuid, &session.Email, &session.UserId, &session.CreatedAt)
 	return
 }

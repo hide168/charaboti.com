@@ -5,7 +5,7 @@ services:
     build: .
     tty: true
     ports: 
-      - "8080:8080"
+      - "80:80"
     container_name: charaboti
     depends_on:
       - mysql

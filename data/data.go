@@ -14,7 +14,7 @@ var Db *sql.DB
 
 func init() {
 	var err error
-	Db, err = sql.Open("mysql", "root:charaboti@tcp(charaboti-web.chvlvb0lgsrs.ap-northeast-1.rds.amazonaws.com:3306)/charaboti?parseTime=true&loc=Asia%2FTokyo")
+	Db, err = sql.Open("mysql", "root:charaboti@tcp(charaboti-web.chvlvb0lgsrs.ap-northeast-1.rds.amazonaws.com:3306)/mysql?parseTime=true&loc=Asia%2FTokyo")
 	if err != nil {
 		log.Fatal(err)
 	}

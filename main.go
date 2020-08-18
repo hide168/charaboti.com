@@ -1,8 +1,10 @@
 package main
 
 import (
+	"log"
+	"net"
 	"net/http"
-	"time"
+	"net/http/fcgi"
 )
 
 func main() {
@@ -49,12 +51,17 @@ func main() {
 	mux.HandleFunc("/character/search", searchCharacter)
 
 	// サーバーの起動処理
-	server := &http.Server{
-		// Addr:           config.Address,
-		Handler:        mux,
-		ReadTimeout:    time.Duration(config.ReadTimeout * int64(time.Second)),
-		WriteTimeout:   time.Duration(config.WriteTimeout * int64(time.Second)),
-		MaxHeaderBytes: 1 << 20,
+	// server := &http.Server{
+	// 	Addr:           config.Address,
+	// 	Handler:        mux,
+	// 	ReadTimeout:    time.Duration(config.ReadTimeout * int64(time.Second)),
+	// 	WriteTimeout:   time.Duration(config.WriteTimeout * int64(time.Second)),
+	// 	MaxHeaderBytes: 1 << 20,
+	// }
+	// server.ListenAndServe()
+	l, err := net.Listen("tcp", "127.0.0.1:9000")
+	if err != nil {
+		log.Fatal(err)
 	}
-	server.ListenAndServe()
+	fcgi.Serve(l, nil)
 }

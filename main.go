@@ -50,7 +50,7 @@ func main() {
 
 	// サーバーの起動処理
 	server := &http.Server{
-		Addr:           config.Address,
+		// Addr:           config.Address,
 		Handler:        mux,
 		ReadTimeout:    time.Duration(config.ReadTimeout * int64(time.Second)),
 		WriteTimeout:   time.Duration(config.WriteTimeout * int64(time.Second)),

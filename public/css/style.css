@@ -1,5 +1,5 @@
 body {
-    font-family: 'Nico Moji', 'Noto Sans JP', sans-serif !important;
+    font-family: 'Noto Sans JP', sans-serif !important;
 }
 .navbar {
     background-color: black;
@@ -56,12 +56,6 @@ body {
     white-space: pre-wrap;
     word-wrap: break-word;
     font-size: larger;
-}
-.terms {                                        /* フォントに依存 */
-    color: rgba(0, 0, 0, 0.8) !important; 
-}
-.terms:hover {                                  /* フォントに依存 */
-    color: rgba(0, 0, 0, 2) !important;
 }
 .font-size-large {
     font-size: 30px;

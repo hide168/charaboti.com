@@ -22,12 +22,12 @@ func Test_UserCreate(t *testing.T) {
 	if err := users[0].Create(); err != nil {
 		t.Error(err, "ユーザーの作成に失敗しました")
 	}
-	if users[0].Id == 0 {
-		t.Errorf("ユーザーIDが存在しません")
-	}
 	u, err := UserByEmail(users[0].Email)
 	if err != nil {
 		t.Error(err, "ユーザーが存在しません")
+	}
+	if u.Id == 0 {
+		t.Errorf("ユーザーIDが存在しません")
 	}
 	if users[0].Email != u.Email {
 		t.Errorf("取得したユーザーは作成したユーザーと異なっています")
@@ -70,7 +70,11 @@ func Test_UserByUUID(t *testing.T) {
 	if err := users[0].Create(); err != nil {
 		t.Error(err, "ユーザーの作成に失敗しました")
 	}
-	u, err := UserByUUID(users[0].Uuid)
+	u, err := UserByEmail(users[0].Email)
+	if err != nil {
+		t.Error(err, "ユーザーの取得に失敗しました")
+	}
+	u, err = UserByUUID(u.Uuid)
 	if err != nil {
 		t.Error(err, "ユーザーが作成されていません")
 	}

@@ -26,7 +26,7 @@ func Test_CreateCharacter(t *testing.T) {
 	}
 	characters[1].Create(users[1].Id)
 	conv = users[1].Characters()
-	if conv[0].Name != "名無し" {
+	if conv[1].Name != "名無し" {
 		t.Error("キャラクター名空白時の「名無し」が機能していません")
 	}
 

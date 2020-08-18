@@ -96,26 +96,26 @@ func (user *User) Create() (err error) {
 }
 
 func (user *User) Delete() (err error) {
-	statement := "delete from users where id = ?"
+	statement := "delete from users where email = ?"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(user.Id)
+	_, err = stmt.Exec(user.Email)
 	return
 }
 
 func (user *User) Update() (err error) {
-	statement := "update users set name = ?, email = ? where id = ?"
+	statement := "update users set name = ? where email = ?"
 	stmt, err := Db.Prepare(statement)
 	if err != nil {
 		return
 	}
 	defer stmt.Close()
 
-	_, err = stmt.Exec(user.Name, user.Email, user.Id)
+	_, err = stmt.Exec(user.Name, user.Email)
 	return
 }
 

@@ -56,6 +56,12 @@ body {
     white-space: pre-wrap;
     font-size: larger;
 }
+.terms {
+    color: rgba(0, 0, 0, 0.8) !important;
+}
+.terms:hover {
+    color: rgba(0, 0, 0, 2) !important;
+}
 .font-size-large {
     font-size: 30px;
 }

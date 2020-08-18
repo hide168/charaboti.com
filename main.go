@@ -13,7 +13,7 @@ func main() {
 	// 静的ファイルの処理
 	mux := http.NewServeMux()
 	files := http.FileServer(http.Dir(config.Static))
-	mux.Handle("/static/", http.StripPrefix("/static/", files))
+	http.Handle("/static/", http.StripPrefix("/static/", files))
 	files = http.FileServer(http.Dir(config.Icons))
 	mux.Handle("/icons/", http.StripPrefix("/icons/", files))
 	files = http.FileServer(http.Dir(config.Characters))
@@ -24,7 +24,7 @@ func main() {
 	// ルートハンドラー関数は他のファイルに定義しています
 
 	// route_main.goで定義されています
-	mux.HandleFunc("/", index)
+	http.HandleFunc("/", index)
 	mux.HandleFunc("/terms", terms)
 	mux.HandleFunc("/privacy", privacy)
 	mux.HandleFunc("/err", err)

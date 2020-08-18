@@ -11,13 +11,13 @@ func main() {
 	p("charaboti.com", version(), "started at", config.Address)
 
 	// 静的ファイルの処理
-	mux := http.NewServeMux()
+	// mux := http.NewServeMux()
 	files := http.FileServer(http.Dir(config.Static))
 	http.Handle("/static/", http.StripPrefix("/static/", files))
 	files = http.FileServer(http.Dir(config.Icons))
-	mux.Handle("/icons/", http.StripPrefix("/icons/", files))
+	http.Handle("/icons/", http.StripPrefix("/icons/", files))
 	files = http.FileServer(http.Dir(config.Characters))
-	mux.Handle("/characters/", http.StripPrefix("/characters/", files))
+	http.Handle("/characters/", http.StripPrefix("/characters/", files))
 
 	//
 	// 以下に全てのルートパターンを記述しています
@@ -25,30 +25,30 @@ func main() {
 
 	// route_main.goで定義されています
 	http.HandleFunc("/", index)
-	mux.HandleFunc("/terms", terms)
-	mux.HandleFunc("/privacy", privacy)
-	mux.HandleFunc("/err", err)
+	http.HandleFunc("/terms", terms)
+	http.HandleFunc("/privacy", privacy)
+	http.HandleFunc("/err", err)
 
 	// route_auth.goで定義されています
-	mux.HandleFunc("/signup", signup)
-	mux.HandleFunc("/signup_account", signupAccount)
-	mux.HandleFunc("/login", login)
-	mux.HandleFunc("/authenticate", authenticate)
-	mux.HandleFunc("/logout", logout)
-	mux.HandleFunc("/test_login", testLogin)
+	http.HandleFunc("/signup", signup)
+	http.HandleFunc("/signup_account", signupAccount)
+	http.HandleFunc("/login", login)
+	http.HandleFunc("/authenticate", authenticate)
+	http.HandleFunc("/logout", logout)
+	http.HandleFunc("/test_login", testLogin)
 
 	// route_mypage.goで定義されています
-	mux.HandleFunc("/mypage", mypage)
-	mux.HandleFunc("/mypage_edit", mypageEdit)
-	mux.HandleFunc("/change_profile", changeProfile)
+	http.HandleFunc("/mypage", mypage)
+	http.HandleFunc("/mypage_edit", mypageEdit)
+	http.HandleFunc("/change_profile", changeProfile)
 
 	// route_character.goで定義されています
-	mux.HandleFunc("/character/new", newCharacter)
-	mux.HandleFunc("/character/post", postCharacter)
-	mux.HandleFunc("/character/list", listCharacter)
-	mux.HandleFunc("/character/detail", detailCharacter)
-	mux.HandleFunc("/character/delete", deleteCharacter)
-	mux.HandleFunc("/character/search", searchCharacter)
+	http.HandleFunc("/character/new", newCharacter)
+	http.HandleFunc("/character/post", postCharacter)
+	http.HandleFunc("/character/list", listCharacter)
+	http.HandleFunc("/character/detail", detailCharacter)
+	http.HandleFunc("/character/delete", deleteCharacter)
+	http.HandleFunc("/character/search", searchCharacter)
 
 	// サーバーの起動処理
 	// server := &http.Server{

@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	p("charaboti.com", version(), "started at", config.Address)
+	p("charaboti.com", version(), "started at tcp 127.0.0.1:9000")
 
 	// 静的ファイルの処理
 	// mux := http.NewServeMux()

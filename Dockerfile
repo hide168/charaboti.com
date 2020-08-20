@@ -8,4 +8,4 @@ ADD . /go/src/github.com/hide168/charaboti.com
 
 RUN go get github.com/go-sql-driver/mysql;
 
-EXPOSE 80
+EXPOSE 8080
